@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Exercises - Language Learning Platform</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <h1 class="logo"><a href="../index.html">Language Learning Platform</a></h1>
+            <nav class="main-nav">
+                <div class="nav-links">
+                    <a href="../about.html" class="nav-link">About Us</a>
+                    <a href="../contact.html" class="nav-link">Contacts</a>
+                    <div class="user-profile-nav" id="userProfileNav" style="display: none;">
+                        <a href="../profile.html" class="nav-link profile-link">
+                            <div class="profile-avatar-small" id="headerProfileAvatar"></div>
+                            <span id="headerUsername"></span>
+                        </a>
+                    </div>
+                    <div class="auth-buttons" id="authButtons">
+                        <a href="../login.html" class="nav-link">Login</a>
+                        <a href="../signup.html" class="nav-link">Sign up</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="exercises-header">
+                <div>
+                    <h2 class="page-title">English Exercises</h2>
+                    <p class="page-subtitle">Practice and improve your language skills</p>
+                </div>
+                <div class="exercises-actions">
+                    <a href="../english/test.html" class="btn btn-primary">Take Level Test</a>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab-list" id="levelTabs">
+                    <button class="tab-button active" data-level="beginner">Beginner</button>
+                    <button class="tab-button" data-level="intermediate">Intermediate</button>
+                    <button class="tab-button" data-level="advanced">Advanced</button>
+                </div>
+
+                <div class="exercise-types">
+                    <div class="exercise-type-grid">
+                        <div class="exercise-type-card">
+                            <div class="exercise-type-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                            </div>
+                            <h3 class="exercise-type-title">Vocabulary</h3>
+                            <p class="exercise-type-description">Build your word bank with interactive vocabulary exercises</p>
+                        </div>
+                        <div class="exercise-type-card">
+                            <div class="exercise-type-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                            </div>
+                            <h3 class="exercise-type-title">Grammar</h3>
+                            <p class="exercise-type-description">Master language structure with targeted grammar practice</p>
+                        </div>
+                        <div class="exercise-type-card">
+                            <div class="exercise-type-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            </div>
+                            <h3 class="exercise-type-title">Reading</h3>
+                            <p class="exercise-type-description">Improve your reading comprehension skills</p>
+                        </div>
+                        <div class="exercise-type-card">
+                            <div class="exercise-type-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                            </div>
+                            <h3 class="exercise-type-title">Writing</h3>
+                            <p class="exercise-type-description">Practice writing in your target language</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content active" id="beginner-content">
+                    <h3 class="content-title">Available Exercises</h3>
+                    <div class="exercise-grid" id="beginner-exercises">
+                        <!-- Exercise cards will be loaded here by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="tab-content" id="intermediate-content">
+                    <h3 class="content-title">Available Exercises</h3>
+                    <div class="exercise-grid" id="intermediate-exercises">
+                        <!-- Exercise cards will be loaded here by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="tab-content" id="advanced-content">
+                    <h3 class="content-title">Available Exercises</h3>
+                    <div class="exercise-grid" id="advanced-exercises">
+                        <!-- Exercise cards will be loaded here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-section">
+                    <h3>Language Learning</h3>
+                    <ul>
+                        <li><a href="#"><span class="flag-icon">🇺🇸</span>English</a></li>
+                        <li><a href="#"><span class="flag-icon">🇪🇸</span>Spanish</a></li>
+                        <li><a href="#"><span class="flag-icon">🇫🇷</span>French</a></li>
+                        <li><a href="#"><span class="flag-icon">🇱🇻</span>Latvian</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Grammar</a></li>
+                        <li><a href="#">Vocabulary</a></li>
+                        <li><a href="#">Pronunciation</a></li>
+                        <li><a href="#">Exercises</a></li>
+                        <li><a href="#">Tests</a></li>
+                        <li><a href="#">Certificates</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Feedback</a></li>
+                        <li><a href="#">Technical Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-left">
+                    <div>© 2024 Language Learning Platform. All rights reserved.</div>
+                    <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
+                        Platform Version: 2.1.0 | Last Updated: May 2024
+                    </div>
+                    <div style="font-size: 0.8rem; opacity: 0.7;">
+                        Contact Information<br>
+                        info@languagelearning.com<br>
+                        +1 (800) 123-4567<br>
+                        123 Education Street, Learning City, LC 12345
+                    </div>
+                </div>
+                <div class="footer-bottom-right">
+                    <div class="legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                        <a href="#">Security</a>
+                        <a href="#">Accessibility</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/exercises.js"></script>
+    <style>
+        /* Базовые стили */
+:root {
+  --primary: #4f46e5;
+  --primary-dark: #4338ca;
+  --primary-light: #818cf8;
+  --secondary: #f8fafc;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-light: #f8fafc;
+  --background: #ffffff;
+  --background-alt: #f1f5f9;
+  --border: #e2e8f0;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --radius: 0.5rem;
+  --transition: all 0.3s ease;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+}
+
+/* Dark Theme Variables */
+.dark {
+  --primary: #818cf8;
+  --primary-dark: #6366f1;
+  --primary-light: #a5b4fc;
+  --secondary: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e0;
+  --background: #0f172a;
+  --background-alt: #1e293b;
+  --border: #334155;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--background);
+  transition: var(--transition);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+.page-title {
+  font-size: 2.25rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.page-subtitle {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+/* Header */
+.header {
+  background-color: var(--background);
+  padding: 1.25rem 0;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo a {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.main-nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav-link {
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+}
+
+.nav-link:hover {
+  color: var(--primary);
+  background-color: rgba(79, 70, 229, 0.05);
+}
+
+.login-btn {
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+
+.login-btn:hover {
+  background-color: var(--primary);
+  color: var(--text-light);
+}
+
+.register-btn {
+  background-color: var(--primary);
+  color: var(--text-light);
+}
+
+.register-btn:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Main Content */
+.main-content {
+  padding: 3rem 0;
+  min-height: calc(100vh - 180px);
+  background-color: var(--background-alt);
+}
+
+/* Exercises Header */
+.exercises-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.exercises-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 500;
+  transition: var(--transition);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--text-light);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.btn-outline {
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  background-color: transparent;
+}
+
+.btn-outline:hover {
+  background-color: var(--primary);
+  color: var(--text-light);
+}
+
+/* Tabs */
+.tabs {
+  background-color: var(--background);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.tab-list {
+  display: flex;
+  background-color: var(--background);
+  border-bottom: 1px solid var(--border);
+}
+
+.tab-button {
+  padding: 1rem 1.5rem;
+  background: none;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-secondary);
+  border-bottom: 2px solid transparent;
+  transition: var(--transition);
+}
+
+.tab-button:hover {
+  color: var(--primary);
+}
+
+.tab-button.active {
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+}
+
+.tab-content {
+  display: none;
+  padding: 2rem;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.content-title {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Exercise Types */
+.exercise-types {
+  padding: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.exercise-type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.exercise-type-card {
+  background-color: var(--background-alt);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  border: 1px solid var(--border);
+}
+
+.exercise-type-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  border-color: var(--primary-light);
+}
+
+.exercise-type-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(79, 70, 229, 0.1);
+  color: var(--primary);
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.exercise-type-title {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+.exercise-type-description {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+/* Exercise Grid */
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Footer */
+.footer {
+  background-color: var(--background-alt);
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copyright {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--text-secondary);
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--primary);
+}
+
+input:checked + .slider:before {
+  transform: translateX(30px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.icon {
+  stroke-width: 2;
+}
+
+.sun-icon, .moon-icon {
+  color: var(--text-secondary);
+}
+
+/* Exercise Card Styles */
+.exercise-card {
+  background-color: var(--background);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.exercise-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+  border-color: var(--primary-light);
+}
+
+.exercise-card-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.exercise-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(79, 70, 229, 0.1);
+  color: var(--primary);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.exercise-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.exercise-card-body {
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+.exercise-description {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.exercise-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.exercise-card-footer {
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.difficulty {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  font-weight: 500;
+}
+
+.difficulty.beginner {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+}
+
+.difficulty.intermediate {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: var(--warning);
+}
+
+.difficulty.advanced {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--error);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .main-nav {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .exercises-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .exercises-actions {
+    width: 100%;
+  }
+  
+  .btn {
+    flex: 1;
+  }
+  
+  .tab-list {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .exercise-type-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.75rem;
+  }
+  
+  .exercise-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .tab-content {
+    padding: 1.5rem 1rem;
+  }
+  
+  .exercise-types {
+    padding: 1.5rem 1rem;
+  }
+}
+    </style>
+    
+</head>
+<script>
+    // Sample exercise data
+    const exercisesData = {
+        beginner: [
+            {
+                id: 'b1',
+                title: 'Present Simple',
+                type: 'grammar',
+                description: 'Practice using the present simple tense in everyday situations',
+                duration: '10 min',
+                questions: 15,
+                difficulty: 'beginner',
+                link: '../exercises/present-simple.html'
+            },
+            {
+                id: 'b2',
+                title: 'Basic Vocabulary',
+                type: 'vocabulary',
+                description: 'Learn essential words for everyday conversations',
+                duration: '8 min',
+                questions: 20,
+                difficulty: 'beginner',
+                link: '../exercises/basic-vocabulary.html'
+            },
+            {
+                id: 'b3',
+                title: 'My Daily Routine',
+                type: 'reading',
+                description: 'Read a simple text about daily activities and answer questions',
+                duration: '12 min',
+                questions: 10,
+                difficulty: 'beginner',
+                link: '../exercises/mydaily-routine.html'
+            },
+            {
+                id: 'b4',
+                title: 'Introducing Yourself',
+                type: 'writing',
+                description: 'Write a short paragraph introducing yourself',
+                duration: '15 min',
+                questions: 1,
+                difficulty: 'beginner',
+                link: '../exercises/introducing-yourself.html'
+            }
+        ],
+        intermediate: [
+            {
+                id: 'i1',
+                title: 'Present Perfect vs Past Simple',
+                type: 'grammar',
+                description: 'Understand the difference between these two important tenses',
+                duration: '15 min',
+                questions: 10,
+                difficulty: 'intermediate',
+                link: '../exercises/present-perfect-vs-past-simple.html'
+            },
+            {
+                id: 'i2',
+                title: 'Phrasal Verbs',
+                type: 'vocabulary',
+                description: 'Learn common phrasal verbs used in everyday English',
+                duration: '12 min',
+                questions: 25,
+                difficulty: 'intermediate',
+                link: '../exercises/phrasal-verbs.html'
+            },
+            {
+                id: 'i3',
+                title: 'City Life vs Country Life',
+                type: 'reading',
+                description: 'Read about the differences between urban and rural living',
+                duration: '20 min',
+                questions: 15,
+                difficulty: 'intermediate',
+                link: '../exercises/city-vs-country.html'
+            },
+            {
+                id: 'i4',
+                title: 'Opinion Essay',
+                type: 'writing',
+                description: 'Write an essay expressing your opinion on a given topic',
+                duration: '25 min',
+                questions: 1,
+                difficulty: 'intermediate',
+                link: '../exercises/opinion-essay.html'
+            }
+        ],
+        advanced: [
+            {
+                id: 'a1',
+                title: 'Conditionals & Wishes',
+                type: 'grammar',
+                description: 'Master all types of conditional sentences and expressions of wish',
+                duration: '20 min',
+                questions: 25,
+                difficulty: 'advanced',
+                link: '../exercises/conditionals-wishes.html'
+            },
+            {
+                id: 'a2',
+                title: 'Idiomatic Expressions',
+                type: 'vocabulary',
+                description: 'Learn advanced idiomatic expressions and their usage',
+                duration: '15 min',
+                questions: 30,
+                difficulty: 'advanced',
+                link: '../exercises/idiomatic-expressions.html'
+            },
+            {
+                id: 'a3',
+                title: 'Scientific Research',
+                type: 'reading',
+                description: 'Read an academic article and analyze its content',
+                duration: '30 min',
+                questions: 20,
+                difficulty: 'advanced',
+                link: '../exercises/scientific-research.html'
+            },
+            {
+                id: 'a4',
+                title: 'Argumentative Essay',
+                type: 'writing',
+                description: 'Write a well-structured argumentative essay on a complex topic',
+                duration: '40 min',
+                questions: 1,
+                difficulty: 'advanced',
+                link: '../exercises/argumentative-essay.html'
+            }
+        ]
+    };
+
+    // Function to create exercise cards
+    function createExerciseCard(exercise) {
+        const typeIcons = {
+            grammar: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>',
+            vocabulary: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>',
+            reading: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>',
+            writing: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>'
+        };
+
+        return `
+            <div class="exercise-card">
+                <div class="exercise-card-header">
+                    <div class="exercise-icon">
+                        ${typeIcons[exercise.type]}
+                    </div>
+                    <h3 class="exercise-title">${exercise.title}</h3>
+                </div>
+                <div class="exercise-card-body">
+                    <p class="exercise-description">${exercise.description}</p>
+                    <div class="exercise-meta">
+                        <div class="meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <span>${exercise.duration}</span>
+                        </div>
+                        <div class="meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                            <span>${exercise.questions} questions</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card-footer">
+                    <span class="difficulty ${exercise.difficulty}">${exercise.difficulty.charAt(0).toUpperCase() + exercise.difficulty.slice(1)}</span>
+                    <a href="${exercise.id === 'b2' ? '../exercises/basic-vocabulary.html' : exercise.id === 'b3' ? '../exercises/mydaily-routine.html' : exercise.link}" class="btn btn-primary">Start</a>
+                </div>
+            </div>
+        `;
+    }
+
+    // Function to initialize tabs
+    function initializeTabs() {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and content
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active');
+                const level = button.dataset.level;
+                document.getElementById(`${level}-content`).classList.add('active');
+            });
+        });
+    }
+
+    // Function to load exercises
+    function loadExercises() {
+        const beginnerContainer = document.getElementById('beginner-exercises');
+        const intermediateContainer = document.getElementById('intermediate-exercises');
+        const advancedContainer = document.getElementById('advanced-exercises');
+        
+        // Load beginner exercises
+        exercisesData.beginner.forEach(exercise => {
+            beginnerContainer.innerHTML += createExerciseCard(exercise);
+        });
+        
+        // Load intermediate exercises
+        exercisesData.intermediate.forEach(exercise => {
+            intermediateContainer.innerHTML += createExerciseCard(exercise);
+        });
+        
+        // Load advanced exercises
+        exercisesData.advanced.forEach(exercise => {
+            advancedContainer.innerHTML += createExerciseCard(exercise);
+        });
+    }
+
+    // Function to initialize theme toggle
+    function initializeThemeToggle() {
+        const themeToggle = document.getElementById('themeToggle');
+        
+        // Check for saved theme preference or respect OS preference
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const savedTheme = localStorage.getItem('theme');
+        
+        if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
+            document.body.classList.add('dark');
+            themeToggle.checked = true;
+        }
+        
+        // Toggle theme when switch is clicked
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                document.body.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    }
+
+    // Profile Management
+    const user = JSON.parse(localStorage.getItem('user'));
+    const userProfileNav = document.getElementById('userProfileNav');
+    const authButtons = document.getElementById('authButtons');
+    const headerProfileAvatar = document.getElementById('headerProfileAvatar');
+    const headerUsername = document.getElementById('headerUsername');
+
+    if (user) {
+        // Show profile navigation and hide auth buttons
+        userProfileNav.style.display = 'flex';
+        authButtons.style.display = 'none';
+
+        // Update header profile information
+        headerProfileAvatar.textContent = user.username.charAt(0).toUpperCase();
+        headerUsername.textContent = user.username;
+    }
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeTabs();
+        loadExercises();
+        initializeThemeToggle();
+    });
+</script>
+<body>
+    
+</html>
+

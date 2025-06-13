@@ -1,0 +1,16 @@
+{
+  "name": "language-learning-platform",
+  "version": "1.0.0",
+  "description": "Language Learning Platform",
+  "scripts": {
+    "dev": "npx serve",
+    "start": "npx serve"
+  },
+  "author": "",
+  "license": "ISC",
+  "main": "main.js",
+  "keywords": [],
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}

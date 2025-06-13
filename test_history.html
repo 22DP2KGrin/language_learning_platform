@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test History - Language Learning Platform</title>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f1c40f;
+            --text-color: #2c3e50;
+            --bg-color: #f5f6fa;
+            --card-bg: #ffffff;
+            --border-color: #dcdde1;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #3498db;
+            --secondary-color: #ecf0f1;
+            --text-color: #ecf0f1;
+            --bg-color: #2c3e50;
+            --card-bg: #34495e;
+            --border-color: #7f8c8d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background-color: var(--card-bg);
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            border-radius: 8px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .stat-card .label {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        .test-results {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .test-result {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s;
+        }
+
+        .test-result:last-child {
+            border-bottom: none;
+        }
+
+        .test-result:hover {
+            background-color: rgba(74, 144, 226, 0.05);
+        }
+
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .test-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .test-meta {
+            display: flex;
+            gap: 1rem;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        .test-details {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            display: none;
+        }
+
+        .test-details.active {
+            display: block;
+        }
+
+        .question-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .question-item {
+            background-color: var(--bg-color);
+            padding: 1rem;
+            border-radius: 4px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .question-item.correct {
+            border-left-color: var(--success-color);
+        }
+
+        .question-item.incorrect {
+            border-left-color: var(--danger-color);
+        }
+
+        .question-text {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .answer-details {
+            display: grid;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .answer-row {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.5rem;
+            align-items: start;
+        }
+
+        .answer-label {
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
+
+        .answer-value {
+            color: var(--text-color);
+        }
+
+        .explanation {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background-color: rgba(74, 144, 226, 0.1);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .error-message {
+            background-color: var(--danger-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .test-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .test-meta {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .answer-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>Test History</h1>
+                <div class="header-actions">
+                    <a href="profile.html" class="btn btn-primary">Back to Profile</a>
+                    <button id="logoutBtn" class="btn btn-danger">Sign Out</button>
+                </div>
+            </div>
+        </header>
+
+        <div id="errorMessage" class="error-message"></div>
+
+        <div id="loading" class="loading">Loading test history...</div>
+
+        <div id="userInfo" class="stats-grid" style="display: none;">
+            <!-- User info will be inserted here -->
+        </div>
+
+        <div id="statistics" class="stats-grid" style="display: none;">
+            <!-- Statistics will be inserted here -->
+        </div>
+
+        <div id="testResults" class="test-results" style="display: none;">
+            <!-- Test results will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Проверяем все возможные ключи для токена сессии
+            const sessionToken = localStorage.getItem('sessionToken') || 
+                               localStorage.getItem('userSessionToken') || 
+                               sessionStorage.getItem('sessionToken');
+            
+            // Если токен не найден, показываем сообщение об ошибке вместо редиректа
+            if (!sessionToken) {
+                showError('Please log in to view your test history');
+                document.getElementById('loading').style.display = 'none';
+                return;
+            }
+
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function() {
+                    // Очищаем все возможные хранилища токена
+                    localStorage.removeItem('sessionToken');
+                    localStorage.removeItem('userSessionToken');
+                    sessionStorage.removeItem('sessionToken');
+                    window.location.href = 'login.html';
+                });
+            }
+
+            loadTestHistory();
+        });
+
+        async function loadTestHistory() {
+            console.log('Loading test history...');
+            
+            // Получаем токен сессии
+            const sessionToken = localStorage.getItem('userSessionToken');
+            console.log('Session token:', sessionToken ? 'Found' : 'Not found');
+
+            if (!sessionToken) {
+                console.error('No session token found');
+                showError('Please log in to view your test history');
+                document.getElementById('loading').style.display = 'none';
+                return;
+            }
+
+            try {
+                console.log('Making request to get_test_history.php...');
+                const response = await fetch('http://localhost:8888/api/get_test_history.php', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${sessionToken}`,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+
+                console.log('Response status:', response.status);
+                console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+
+                const responseText = await response.text();
+                console.log('Raw response:', responseText);
+
+                if (!response.ok) {
+                    let errorData;
+                    try {
+                        errorData = JSON.parse(responseText);
+                    } catch (e) {
+                        console.error('Failed to parse error response:', e);
+                        throw new Error('Server returned invalid response');
+                    }
+
+                    if (response.status === 401) {
+                        console.error('Session expired or invalid');
+                        showError('Your session has expired. Please log in again.');
+                        // Очищаем токен и перенаправляем на страницу входа
+                        localStorage.removeItem('userSessionToken');
+                        localStorage.removeItem('user');
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 2000);
+                        return;
+                    }
+                    throw new Error(errorData.message || 'Failed to get test history');
+                }
+
+                let data;
+                try {
+                    data = JSON.parse(responseText);
+                } catch (e) {
+                    console.error('Failed to parse response:', e);
+                    throw new Error('Server returned invalid JSON response');
+                }
+
+                if (!data.success) {
+                    throw new Error(data.message || 'Failed to get test history');
+                }
+
+                console.log('Successfully loaded test history');
+                displayUserInfo(data.user);
+                displayStatistics(data.statistics);
+                displayTestResults(data.test_results);
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('userInfo').style.display = 'grid';
+                document.getElementById('statistics').style.display = 'grid';
+                document.getElementById('testResults').style.display = 'block';
+
+            } catch (error) {
+                console.error('Error loading test history:', error);
+                showError(error.message || 'Failed to load test history. Please try again later.');
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        function displayUserInfo(user) {
+            const userInfoHtml = `
+                <div class="stat-card">
+                    <h3>Username</h3>
+                    <div class="value">${user.username}</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Questions</h3>
+                    <div class="value">${user.total_questions}</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Correct Answers</h3>
+                    <div class="value">${user.correct_answers}</div>
+                    <div class="label">${Math.round((user.correct_answers / user.total_questions) * 100)}% accuracy</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Topics Covered</h3>
+                    <div class="value">${user.topics_covered}</div>
+                </div>
+            `;
+            document.getElementById('userInfo').innerHTML = userInfoHtml;
+        }
+
+        function displayStatistics(stats) {
+            const statsHtml = `
+                <div class="stat-card">
+                    <h3>Total Tests</h3>
+                    <div class="value">${stats.total_tests}</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Average Score</h3>
+                    <div class="value">${stats.avg_score}%</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Time</h3>
+                    <div class="value">${formatTime(stats.total_time)}</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Topics Covered</h3>
+                    <div class="value">${stats.topics_covered}</div>
+                </div>
+            `;
+            document.getElementById('statistics').innerHTML = statsHtml;
+        }
+
+        function displayTestResults(results) {
+            const resultsHtml = results.map((result, index) => `
+                <div class="test-result">
+                    <div class="test-header" onclick="toggleTestDetails(${index})">
+                        <div class="test-title">${result.topic_name} (${result.difficulty_level})</div>
+                        <div class="test-meta">
+                            <span>Score: ${Math.round((result.score / result.max_score) * 100)}%</span>
+                            <span>Time: ${formatTime(result.time_spent)}</span>
+                            <span>Date: ${formatDate(result.completion_date)}</span>
+                        </div>
+                    </div>
+                    <div id="testDetails${index}" class="test-details">
+                        <div class="question-list">
+                            ${result.question_details.map(question => `
+                                <div class="question-item ${question.is_correct ? 'correct' : 'incorrect'}">
+                                    <div class="question-text">${question.question_text}</div>
+                                    <div class="answer-details">
+                                        <div class="answer-row">
+                                            <span class="answer-label">Your answer:</span>
+                                            <span class="answer-value">${question.user_answer}</span>
+                                        </div>
+                                        <div class="answer-row">
+                                            <span class="answer-label">Correct answer:</span>
+                                            <span class="answer-value">${question.correct_answer}</span>
+                                        </div>
+                                        ${question.explanation ? `
+                                            <div class="explanation">
+                                                <strong>Explanation:</strong> ${question.explanation}
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('testResults').innerHTML = resultsHtml;
+        }
+
+        function toggleTestDetails(index) {
+            const details = document.getElementById(`testDetails${index}`);
+            details.classList.toggle('active');
+        }
+
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const remainingSeconds = seconds % 60;
+            
+            if (hours > 0) {
+                return `${hours}h ${minutes}m ${remainingSeconds}s`;
+            } else if (minutes > 0) {
+                return `${minutes}m ${remainingSeconds}s`;
+            } else {
+                return `${remainingSeconds}s`;
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        }
+
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.textContent = message;
+            errorElement.classList.add('active');
+        }
+    </script>
+</body>
+</html>

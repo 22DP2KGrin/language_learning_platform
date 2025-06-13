@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Language Learning Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --background: #ffffff;
+            --foreground: #0f172a;
+            --primary: #4f46e5;
+            --primary-foreground: #ffffff;
+            --secondary: #f1f5f9;
+            --secondary-foreground: #1e293b;
+            --muted: #f1f5f9;
+            --muted-foreground: #64748b;
+            --accent: #f1f5f9;
+            --accent-foreground: #1e293b;
+            --destructive: #ef4444;
+            --destructive-foreground: #ffffff;
+            --border: #e2e8f0;
+            --input: #e2e8f0;
+            --ring: #4f46e5;
+            --radius: 0.5rem;
+            
+            --indigo-600: #4f46e5;
+            --indigo-700: #4338ca;
+            --indigo-800: #3730a3;
+            
+            /* Основные цвета для светлой темы */
+            --body-bg: #f8f9fa;
+            --body-color: #333;
+            --header-bg: white;
+            --card-bg: white;
+            --features-bg: white;
+            --language-cards-bg: #f1f5f9;
+            --footer-bg: #374151;
+            --footer-color: white;
+        }
+
+        /* Цвета для темной темы */
+        .dark {
+            --background: #0f172a;
+            --foreground: #f8fafc;
+            --secondary: #1e293b;
+            --secondary-foreground: #e2e8f0;
+            --muted: #1e293b;
+            --muted-foreground: #94a3b8;
+            --border: #334155;
+            
+            /* Основные цвета для темной темы */
+            --body-bg: #121212;
+            --body-color: #e2e8f0;
+            --header-bg: #1a1a1a;
+            --card-bg: #2d3748;
+            --features-bg: #1a1a1a;
+            --language-cards-bg: #121212;
+            --footer-bg: #374151;
+            --footer-color: #e2e8f0;
+            
+            /* Индиго для темной темы - более светлые оттенки */
+            --indigo-600: #667eea;
+            --indigo-700: #7f9cf5;
+            --indigo-800: #a3bffa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.5;
+            color: var(--foreground);
+            background-color: var(--background);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-top: 3rem;
+            color: var(--primary);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--indigo-700);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--indigo-600);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--indigo-700);
+        }
+
+        /* About Sections */
+        .about-section {
+            padding: 4rem 0;
+            background-color: white;
+        }
+
+        .about-section:nth-child(odd) {
+            background-color: var(--secondary);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-content {
+            font-size: 1.125rem;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            color: var(--secondary-foreground);
+        }
+
+        .about-image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            height: 400px;
+            background-color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #64748b;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 4rem 0;
+            background-color: var(--secondary);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .member-image {
+            width: 100%;
+            height: 250px;
+            background-color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #64748b;
+        }
+
+        .member-info {
+            padding: 1.5rem;
+        }
+
+        .member-name {
+            margin-bottom: 0.5rem;
+            color: var(--foreground);
+        }
+
+        .member-title {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .member-bio {
+            font-size: 0.9rem;
+            color: var(--muted-foreground);
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            padding: 4rem 0;
+            background-color: white;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--indigo-600);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            top: 15px;
+            border-radius: 50%;
+            background-color: white;
+            border: 4px solid var(--indigo-600);
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -12px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: var(--secondary);
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .timeline-year {
+            font-weight: bold;
+            color: var(--indigo-600);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                order: -1;
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+                left: 0 !important;
+            }
+            
+            .timeline-item::after {
+                left: 19px !important;
+                right: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.75rem;
+            }
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--header-bg);
+            padding: 1.5rem 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            margin: 0;
+            font-weight: bold;
+            color: var(--body-color);
+        }
+
+        .main-nav {
+            display: flex !important;
+            gap: 2rem !important;
+            align-items: center !important;
+        }
+
+        .nav-links {
+            display: flex !important;
+            gap: 2rem !important;
+            align-items: center !important;
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: all 0.2s ease;
+            color: var(--body-color);
+        }
+
+        .nav-link:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .dark .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* User Profile Navigation */
+        .user-profile-nav {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem !important;
+        }
+
+        .profile-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+        }
+
+        .profile-link:hover {
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+
+        .profile-avatar-small {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, var(--indigo-600), var(--indigo-800));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .auth-buttons {
+            display: flex !important;
+            gap: 1rem !important;
+            margin-left: 1rem !important;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.5rem !important;
+            margin-left: 1rem !important;
+        }
+
+        .theme-toggle .icon {
+            color: var(--indigo-600);
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        /* Switch (Dark Mode Toggle) */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: -9999px;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--indigo-600);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(16px);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        /* Dark theme styles for switch */
+        .dark .slider {
+            background-color: #4a5568;
+        }
+
+        .dark .slider:before {
+            background-color: #e2e8f0;
+        }
+
+        .dark input:checked + .slider {
+            background-color: var(--indigo-600);
+        }
+
+        .dark .theme-toggle .icon {
+            color: var(--indigo-600);
+        }
+
+        /* Dark Mode Styles */
+        .dark .about-section {
+            background-color: #0f172a;
+        }
+
+        .dark .about-section:nth-child(odd) {
+            background-color: #1e293b;
+        }
+
+        .dark .team-section {
+            background-color: #0f172a;
+        }
+
+        .dark .team-member {
+            background-color: #1e293b;
+        }
+
+        .dark .timeline-section {
+            background-color: #0f172a;
+        }
+
+        .dark .timeline-content {
+            background-color: #1e293b;
+        }
+
+        .dark .timeline-item::after {
+            background-color: #1e293b;
+        }
+        
+        .dark .member-title {
+            color: #a3bffa;
+        }
+        
+        .dark .section-title {
+            color: #a3bffa;
+        }
+        
+        .dark .timeline-year {
+            color: #a3bffa;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <h1 class="logo"><a href="index.html">Language Learning Platform</a></h1>
+            <nav class="main-nav">
+                <div class="nav-links">
+                    <a href="about.html" class="nav-link">About Us</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <div class="user-profile-nav" id="userProfileNav" style="display: none;">
+                        <a href="profile.html" class="nav-link profile-link">
+                            <div class="profile-avatar-small" id="headerProfileAvatar"></div>
+                            <span id="headerUsername"></span>
+                        </a>
+                    </div>
+                    <div class="auth-buttons" id="authButtons">
+                        <a href="login.html" class="nav-link">Login</a>
+                        <a href="signup.html" class="nav-link">Sign up</a>
+                    </div>
+                </div>
+                <!-- Theme Toggle -->
+                <div class="theme-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon sun-icon"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <label class="switch">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <div class="container">
+        <h1 class="page-title">About Us</h1>
+    </div>
+
+    <!-- About Section 1 -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <h2 class="section-title">Our Mission</h2>
+                    <p>At Language Learning Platform, we're dedicated to breaking down language barriers and creating a world where everyone can communicate freely across cultures. Our mission is to make language learning accessible, engaging, and effective for all.</p>
+                    <p>We believe that language is more than just words—it's the key to understanding different perspectives, building meaningful connections, and exploring new opportunities. That's why we've created an innovative learning environment that combines proven teaching methods with cutting-edge technology.</p>
+                    <p>Whether you're learning for travel, work, academic pursuits, or personal growth, our platform provides the tools and support you need to achieve fluency and confidence in your target language.</p>
+                </div>
+                <div class="about-image">
+                    Mission Image
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section 2 -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image">
+                    Story Image
+                </div>
+                <div class="about-content">
+                    <h2 class="section-title">Our Story</h2>
+                    <p>Founded in 2018 by a group of linguists, educators, and technology enthusiasts, Language Learning Platform began with a simple observation: traditional language learning methods weren't working for most people.</p>
+                    <p>Our founders experienced firsthand the frustration of spending years in language classes only to struggle with real conversations. They set out to create something better—a platform that would prepare learners for authentic communication from day one.</p>
+                    <p>What started as a small project with just two languages has grown into a global community of millions of learners studying over 20 languages. Throughout our growth, we've remained committed to our founding vision: making effective language learning accessible to everyone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">Meet Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">Photo</div>
+                    <div class="member-info">
+                        <h3 class="member-name">Alex Johnson</h3>
+                        <p class="member-title">Founder & CEO</p>
+                        <p class="member-bio">Linguist with expertise in 5 languages. Former professor at Boston University with a passion for making language learning accessible to all.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">Photo</div>
+                    <div class="member-info">
+                        <h3 class="member-name">Maria Rodriguez</h3>
+                        <p class="member-title">Head of Curriculum</p>
+                        <p class="member-bio">With 15+ years in language education, Maria develops our immersive learning methodology that emphasizes practical communication skills.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">Photo</div>
+                    <div class="member-info">
+                        <h3 class="member-name">Hiroshi Tanaka</h3>
+                        <p class="member-title">Chief Technology Officer</p>
+                        <p class="member-bio">Tech innovator with a background in AI and adaptive learning. Leads our engineering team in creating personalized learning experiences.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">Photo</div>
+                    <div class="member-info">
+                        <h3 class="member-name">Sophie Laurent</h3>
+                        <p class="member-title">User Experience Director</p>
+                        <p class="member-bio">Former language teacher turned UX specialist. Ensures our platform is intuitive, engaging, and optimized for effective learning.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <div class="container">
+            <h2 class="section-title">Our Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-year">2018</h3>
+                        <p>Founded in Boston, MA with a team of 5 passionate language educators.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-year">2019</h3>
+                        <p>Launched our first mobile app offering Spanish and French courses.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-year">2020</h3>
+                        <p>Expanded to 10 languages and introduced our innovative community feature.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-year">2021</h3>
+                        <p>Reached 1 million active users and partnered with 50+ universities worldwide.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-year">2022</h3>
+                        <p>Launched our AI-powered conversation practice feature and expanded to 15 languages.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-year">2023</h3>
+                        <p>Introduced virtual reality immersion experiences for advanced learners.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-year">2024</h3>
+                        <p>Reached 5 million users globally and expanded our team to 100+ language experts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-section">
+                    <h3>Language Learning</h3>
+                    <ul>
+                        <li><a href="#"><span class="flag-icon">🇺🇸</span>English</a></li>
+                        <li><a href="#"><span class="flag-icon">🇪🇸</span>Spanish</a></li>
+                        <li><a href="#"><span class="flag-icon">🇫🇷</span>French</a></li>
+                        <li><a href="#"><span class="flag-icon">🇱🇻</span>Latvian</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Grammar</a></li>
+                        <li><a href="#">Vocabulary</a></li>
+                        <li><a href="#">Pronunciation</a></li>
+                        <li><a href="#">Exercises</a></li>
+                        <li><a href="#">Tests</a></li>
+                        <li><a href="#">Certificates</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Feedback</a></li>
+                        <li><a href="#">Technical Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-left">
+                    <div>© 2024 Language Learning Platform. All rights reserved.</div>
+                    <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
+                        Platform Version: 2.1.0 | Last Updated: May 2024
+                    </div>
+                    <div style="font-size: 0.8rem; opacity: 0.7;">
+                        Contact Information<br>
+                        info@languagelearning.com<br>
+                        +1 (800) 123-4567<br>
+                        123 Education Street, Learning City, LC 12345
+                    </div>
+                </div>
+                <div class="footer-bottom-right">
+                    <div class="legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                        <a href="#">Security</a>
+                        <a href="#">Accessibility</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing theme toggle...');
+            
+            // Check if localStorage is available
+            function isLocalStorageAvailable() {
+                try {
+                    const test = 'test';
+                    localStorage.setItem(test, test);
+                    localStorage.removeItem(test);
+                    return true;
+                } catch(e) {
+                    return false;
+                }
+            }
+            
+            console.log('localStorage available:', isLocalStorageAvailable());
+            
+            // Theme Toggle
+            const themeToggle = document.getElementById('themeToggle');
+            console.log('Theme toggle element:', themeToggle);
+            
+            if (themeToggle) {
+                // Check for saved user preference
+                let savedTheme = null;
+                if (isLocalStorageAvailable()) {
+                    savedTheme = localStorage.getItem('theme');
+                }
+                console.log('Saved theme:', savedTheme);
+                
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('dark');
+                    themeToggle.checked = true;
+                    console.log('Applied dark theme');
+                } else {
+                    // Check system preference if no saved theme
+                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        document.body.classList.add('dark');
+                        themeToggle.checked = true;
+                        console.log('Applied system dark theme preference');
+                    }
+                }
+                
+                // Toggle theme on switch change
+                themeToggle.addEventListener('change', function() {
+                    console.log('Theme toggle changed, checked:', this.checked);
+                    
+                    if (this.checked) {
+                        document.body.classList.add('dark');
+                        if (isLocalStorageAvailable()) {
+                            localStorage.setItem('theme', 'dark');
+                        }
+                        console.log('Switched to dark theme');
+                    } else {
+                        document.body.classList.remove('dark');
+                        if (isLocalStorageAvailable()) {
+                            localStorage.setItem('theme', 'light');
+                        }
+                        console.log('Switched to light theme');
+                    }
+                });
+                
+                // Add click event as fallback
+                themeToggle.addEventListener('click', function(e) {
+                    console.log('Theme toggle clicked');
+                });
+                
+                // Add mousedown event for better Chrome support
+                themeToggle.addEventListener('mousedown', function(e) {
+                    console.log('Theme toggle mousedown');
+                });
+                
+            } else {
+                console.error('Theme toggle element not found!');
+            }
+
+            // Profile Management
+            let user = null;
+            if (isLocalStorageAvailable()) {
+                user = JSON.parse(localStorage.getItem('user'));
+            }
+            const userProfileNav = document.getElementById('userProfileNav');
+            const authButtons = document.getElementById('authButtons');
+            const headerProfileAvatar = document.getElementById('headerProfileAvatar');
+            const headerUsername = document.getElementById('headerUsername');
+
+            if (user) {
+                // Show profile navigation and hide auth buttons
+                userProfileNav.style.display = 'flex';
+                authButtons.style.display = 'none';
+
+                // Update header profile information
+                headerProfileAvatar.textContent = user.username.charAt(0).toUpperCase();
+                headerUsername.textContent = user.username;
+            }
+        });
+        
+        // Fallback for immediate execution
+        if (document.readyState === 'loading') {
+            console.log('Document still loading, waiting for DOMContentLoaded...');
+        } else {
+            console.log('Document already loaded, running theme initialization...');
+            // Re-run the theme initialization
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                let savedTheme = null;
+                try {
+                    savedTheme = localStorage.getItem('theme');
+                } catch(e) {
+                    console.log('localStorage not available in fallback');
+                }
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('dark');
+                    themeToggle.checked = true;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

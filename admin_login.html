@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Language Learning Platform</title>
+    <style>
+        :root {
+            --background: #ffffff;
+            --foreground: #333333;
+            --primary: #dc2626;
+            --primary-hover: #b91c1c;
+            --primary-deep: #991b1b;
+            --muted-foreground: #6c757d;
+            --secondary: #f5f7fa;
+            --border: #ddd;
+            --error: #e74c3c;
+            --success: #27ae60;
+            --radius: 0.75rem;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.5;
+            color: var(--foreground);
+            background-color: var(--secondary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .header {
+            background-color: var(--background);
+            padding: 1.5rem 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            margin: 0;
+            background: linear-gradient(90deg, var(--primary), var(--primary-deep));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .main-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .admin-login-container {
+            background-color: var(--background);
+            padding: 3rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .admin-login-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .admin-login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(90deg, var(--primary), var(--primary-deep));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 1.75rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+        }
+
+        .form-error {
+            color: var(--error);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+            padding-left: 0.5rem;
+            border-left: 2px solid var(--error);
+        }
+
+        .form-button {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, var(--primary), var(--primary-deep));
+            border-radius: var(--radius);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+        }
+
+        .form-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <h1 class="logo"><a href="index.html">Language Learning Platform</a></h1>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <div class="admin-login-container">
+            <div class="admin-login-header">
+                <h1 class="admin-login-title">Admin Login</h1>
+            </div>
+
+            <div id="generalError" class="form-error"></div>
+            
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="email" class="form-label">Admin Email</label>
+                    <input type="email" id="email" name="email" class="form-input" autocomplete="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" name="password" class="form-input" autocomplete="current-password" required>
+                </div>
+                <button type="submit" class="form-button">Sign In as Admin</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('adminLoginForm');
+            const errorDisplay = document.getElementById('generalError');
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            function showError(message) {
+                errorDisplay.textContent = message;
+                errorDisplay.style.display = 'block';
+                submitButton.disabled = false;
+                submitButton.textContent = 'Sign In as Admin';
+            }
+
+            function clearError() {
+                errorDisplay.textContent = '';
+                errorDisplay.style.display = 'none';
+            }
+
+            form.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                clearError();
+
+                const email = form.querySelector('#email').value.trim();
+                const password = form.querySelector('#password').value.trim();
+
+                console.log('=== Admin Login Form Submit ===');
+                console.log('Email:', email);
+                console.log('Form validation passed');
+
+                if (!email || !password) {
+                    console.log('Form validation failed: empty fields');
+                    showError('Please enter both email and password');
+                    return;
+                }
+
+                submitButton.disabled = true;
+                submitButton.textContent = 'Signing in...';
+
+                console.log('Preparing login request...');
+                console.log('Request URL:', window.location.origin + '/admin_auth.php');
+
+                try {
+                    console.log('Sending login request...');
+                    const response = await fetch('/admin_auth.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email, password })
+                    });
+
+                    console.log('Response received:');
+                    console.log('Status:', response.status);
+                    console.log('Status text:', response.statusText);
+                    console.log('Headers:', Object.fromEntries(response.headers.entries()));
+
+                    const responseText = await response.text();
+                    console.log('Raw response:', responseText);
+
+                    let data;
+                    try {
+                        data = JSON.parse(responseText);
+                        console.log('Parsed response data:', data);
+                    } catch (e) {
+                        console.error('Failed to parse response as JSON:', e);
+                        showError('Invalid server response. Please try again.');
+                        return;
+                    }
+
+                    if (data.success) {
+                        console.log('Login successful:');
+                        console.log('Session token:', data.session.token);
+                        console.log('Token expires:', data.session.expires);
+                        console.log('Admin data:', data.admin);
+                        
+                        console.log('Storing session token in localStorage...');
+                        localStorage.setItem('adminSessionToken', data.session.token);
+                        
+                        console.log('Redirecting to dashboard...');
+                        window.location.href = 'admin_dashboard.html';
+                    } else {
+                        console.log('Login failed:', data.message);
+                        showError(data.message || 'Invalid email or password');
+                    }
+                } catch (error) {
+                    console.error('Login request failed:', error);
+                    console.error('Error details:', {
+                        name: error.name,
+                        message: error.message,
+                        stack: error.stack
+                    });
+                    showError('An error occurred while connecting to the server. Please try again.');
+                } finally {
+                    console.log('Resetting form state...');
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Sign In as Admin';
+                }
+            });
+
+            form.querySelectorAll('input').forEach(input => {
+                input.addEventListener('input', clearError);
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Toggle Test</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            padding: 2rem;
+            font-family: Arial, sans-serif;
+        }
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .dark .test-container {
+            background: #2d3748;
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Theme Toggle Test</h1>
+        <p>This is a test page to check if the theme toggle works in Chrome.</p>
+        
+        <!-- Theme Toggle -->
+        <div class="theme-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon sun-icon">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <label class="switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider round"></span>
+            </label>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon moon-icon">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </div>
+        
+        <div id="status"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Test page loaded');
+            
+            const themeToggle = document.getElementById('themeToggle');
+            const status = document.getElementById('status');
+            
+            console.log('Theme toggle element:', themeToggle);
+            
+            if (themeToggle) {
+                // Check saved theme
+                const savedTheme = localStorage.getItem('theme');
+                console.log('Saved theme:', savedTheme);
+                
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('dark');
+                    themeToggle.checked = true;
+                    status.textContent = 'Dark theme applied';
+                } else {
+                    status.textContent = 'Light theme applied';
+                }
+                
+                // Add change event
+                themeToggle.addEventListener('change', function() {
+                    console.log('Toggle changed, checked:', this.checked);
+                    
+                    if (this.checked) {
+                        document.body.classList.add('dark');
+                        localStorage.setItem('theme', 'dark');
+                        status.textContent = 'Switched to dark theme';
+                    } else {
+                        document.body.classList.remove('dark');
+                        localStorage.setItem('theme', 'light');
+                        status.textContent = 'Switched to light theme';
+                    }
+                });
+                
+                // Add click event for debugging
+                themeToggle.addEventListener('click', function(e) {
+                    console.log('Toggle clicked');
+                });
+                
+                // Add mousedown event
+                themeToggle.addEventListener('mousedown', function(e) {
+                    console.log('Toggle mousedown');
+                });
+                
+            } else {
+                console.error('Theme toggle not found!');
+                status.textContent = 'Error: Theme toggle not found';
+            }
+        });
+    </script>
+</body>
+</html> 

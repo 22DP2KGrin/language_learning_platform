@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning Platform</title>
+    <style>
+        /* Базовые стили */
+        :root {
+            /* Цвета для светлой темы */
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --primary: 0 0% 0%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 210 40% 96.1%;
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --destructive: 0 84.2% 60.2%;
+            --destructive-foreground: 210 40% 98%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 222.2 84% 4.9%;
+            --radius: 0.5rem;
+            
+            --indigo-600: #4f46e5;
+            --indigo-700: #4338ca;
+            --indigo-800: #3730a3;
+            
+            /* Основные цвета для светлой темы */
+            --body-bg: #f8f9fa;
+            --body-color: #333;
+            --header-bg: white;
+            --card-bg: white;
+            --features-bg: white;
+            --language-cards-bg: #f1f5f9;
+            --footer-bg: #374151;
+            --footer-color: white;
+        }
+
+        /* Цвета для темной темы */
+        .dark {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --primary: 210 40% 98%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 32.6% 17.5%;
+            --accent-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+
+            /* Основные цвета для темной темы */
+            --body-bg: #121212;
+            --body-color: #e2e8f0;
+            --header-bg: #1a1a1a;
+            --card-bg: #2d3748;
+            --features-bg: #1a1a1a;
+            --language-cards-bg: #121212;
+            --footer-bg: #374151;
+            --footer-color: #e2e8f0;
+            
+            /* Индиго для темной темы - более светлые оттенки */
+            --indigo-600: #667eea;
+            --indigo-700: #7f9cf5;
+            --indigo-800: #a3bffa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.5;
+            color: var(--body-color);
+            background-color: var(--body-bg);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Шапка */
+        .header {
+            background-color: var(--header-bg);
+            padding: 1.5rem 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            margin: 0;
+            font-weight: bold;
+            color: var(--body-color);
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: all 0.2s ease;
+            color: var(--body-color);
+        }
+
+        .nav-link:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .dark .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* User Profile Navigation */
+        .user-profile-nav {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+        }
+
+        .profile-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+        }
+
+        .profile-link:hover {
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+
+        .profile-avatar-small {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, var(--indigo-600), var(--indigo-800));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-left: 1rem;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .theme-toggle .icon {
+            color: var(--indigo-600);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: var(--indigo-600);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(16px);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .animated-bg {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        .dark .animated-bg {
+            background: linear-gradient(-45deg, #3b2d3e, #2d303e, #0f2631, #0f312a);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .animated-bg-text {
+            position: absolute;
+            font-size: 20vw;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+            user-select: none;
+            transition: all 0.5s ease;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background-color: var(--features-bg);
+            transition: background-color 0.3s ease;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            background-color: var(--card-bg);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: var(--indigo-600);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--body-color);
+        }
+
+        .feature-description {
+            color: var(--muted-foreground);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 0;
+            background-color: var(--footer-bg);
+            color: var(--footer-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            border-radius: var(--radius);
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--indigo-600);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        /* Language Cards Section */
+        .language-cards {
+            padding: 5rem 0;
+            background-color: var(--language-cards-bg);
+            transition: background-color 0.3s ease;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--body-color);
+        }
+
+        .language-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .language-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            width: 250px;
+            flex: 0 0 auto;
+        }
+
+        .language-card:hover {
+            transform: scale(1.05);
+        }
+
+        .language-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--muted-foreground);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark .language-image {
+            background-color: #2a2a2a;
+            color: #a0aec0;
+        }
+
+        .language-title {
+            padding: 1rem;
+            text-align: center;
+            color: var(--body-color);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--indigo-600);
+            color: white;
+            margin: 0 1rem 1rem;
+            width: calc(100% - 2rem);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--indigo-700);
+        }
+
+        .btn-lg {
+            padding: 0.75rem 1.5rem;
+            font-size: 1.125rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-color);
+            padding: 4rem 0 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--indigo-600);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--footer-color);
+            transition: color 0.2s ease;
+            opacity: 0.8;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--indigo-600);
+            opacity: 1;
+        }
+
+        .flag-icon {
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+
+        .footer-apps {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .app-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius);
+            padding: 0.75rem 1rem;
+            color: white;
+            transition: all 0.2s ease;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .app-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .app-button-title {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .app-button-name {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .newsletter {
+            max-width: 400px;
+        }
+
+        .newsletter h3 {
+            color: var(--indigo-600);
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .newsletter-btn {
+            background-color: var(--indigo-600);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .newsletter-btn:hover {
+            background-color: var(--indigo-700);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .footer-bottom-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-bottom-right {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: right;
+        }
+
+        .legal-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .legal-links a {
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .legal-links a:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .main-nav {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .user-profile-nav {
+                margin: 0.5rem 0;
+            }
+            
+            .auth-buttons {
+                margin: 0.5rem 0;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .language-grid {
+                gap: 1rem;
+            }
+            
+            .language-card {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .apps-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .app-buttons {
+                flex-direction: column;
+            }
+
+            .footer-bottom {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-bottom-right {
+                text-align: center;
+            }
+
+            .legal-links {
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <h1 class="logo"><a href="index.html">Language Learning Platform</a></h1>
+            <nav class="main-nav">
+                <div class="nav-links">
+                   
+                    <a href="about.html" class="nav-link">About Us</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <div class="user-profile-nav" id="userProfileNav" style="display: none;">
+                        <a href="profile.html" class="nav-link profile-link">
+                            <div class="profile-avatar-small" id="headerProfileAvatar"></div>
+                            <span id="headerUsername"></span>
+                        </a>
+                    </div>
+                    <div class="auth-buttons" id="authButtons">
+                        <a href="login.html" class="nav-link">Login</a>
+                        <a href="signup.html" class="nav-link">Sign up</a>
+                    </div>
+                </div>
+                <!-- Theme Toggle -->
+                <div class="theme-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon sun-icon"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <label class="switch">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero animated-bg">
+        <div class="animated-bg-text" id="animatedBgText">Learn</div>
+        <div class="hero-content">
+            <h2 class="hero-title">Level Up Your Language Skills</h2>
+            <p class="hero-description">Join our immersive platform to boost your language abilities through interactive lessons and community support.</p>
+            <a href="register.html" class="btn btn-primary btn-lg">Get Started Now</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Our Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <h3 class="feature-title">Expert Tutors</h3>
+                    <p class="feature-description">Work with language professionals to guide you to fluency.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                    </div>
+                    <h3 class="feature-title">Interactive Lessons</h3>
+                    <p class="feature-description">Engage with lessons tailored to your needs and learning style.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    </div>
+                    <h3 class="feature-title">Community Support</h3>
+                    <p class="feature-description">Collaborate with fellow learners and receive helpful feedback.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Language Cards Section -->
+    <section class="language-cards">
+        <div class="container">
+            <h2 class="section-title">Choose Your Language</h2>
+            <div class="language-grid">
+                <div class="language-card">
+                    <div class="language-image">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/English_language.svg" alt="English Language" style="width: 100%; height: 100%; object-fit: contain; padding: 1rem;">
+                    </div>
+                    <h3 class="language-title">English</h3>
+                    <a href="exercises_english.html" class="btn btn-primary">Start Learning</a>
+                </div>
+                <div class="language-card">
+                    <div class="language-image">ES</div>
+                    <h3 class="language-title">Spanish</h3>
+                    <a href="exercises_spanish.html" class="btn btn-primary">Start Learning</a>
+                </div>
+                <div class="language-card">
+                    <div class="language-image">FR</div>
+                    <h3 class="language-title">French</h3>
+                    <a href="exercises_french.html" class="btn btn-primary">Start Learning</a>
+                </div>
+                <div class="language-card">
+                    <div class="language-image">LV</div>
+                    <h3 class="language-title">Latvian</h3>
+                    <a href="exercises_latvian.html" class="btn btn-primary">Start Learning</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-section">
+                    <h3>Language Learning</h3>
+                    <ul>
+                        <li><a href="#"><span class="flag-icon">🇺🇸</span>English</a></li>
+                        <li><a href="#"><span class="flag-icon">🇪🇸</span>Spanish</a></li>
+                        <li><a href="#"><span class="flag-icon">🇫🇷</span>French</a></li>
+                        <li><a href="#"><span class="flag-icon">🇱🇻</span>Latvian</a></li>
+                        
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Grammar</a></li>
+                        <li><a href="#">Vocabulary</a></li>
+                        <li><a href="#">Pronunciation</a></li>
+                        <li><a href="#">Exercises</a></li>
+                        <li><a href="#">Tests</a></li>
+                        <li><a href="#">Certificates</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Feedback</a></li>
+                        <li><a href="#">Technical Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-left">
+                    <div>© 2024 Language Learning Platform. All rights reserved.</div>
+                    <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
+                        Platform Version: 2.1.0 | Last Updated: May 2024
+                    </div>
+                    <div style="font-size: 0.8rem; opacity: 0.7;">
+                        Contact Information<br>
+                        info@languagelearning.com<br>
+                        +1 (800) 123-4567<br>
+                        123 Education Street, Learning City, LC 12345
+                    </div>
+                </div>
+                <div class="footer-bottom-right">
+                    <div class="legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                        <a href="#">Security</a>
+                        <a href="#">Accessibility</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing theme toggle...');
+            
+            // Check if localStorage is available
+            function isLocalStorageAvailable() {
+                try {
+                    const test = 'test';
+                    localStorage.setItem(test, test);
+                    localStorage.removeItem(test);
+                    return true;
+                } catch(e) {
+                    return false;
+                }
+            }
+            
+            console.log('localStorage available:', isLocalStorageAvailable());
+            
+            // Theme Toggle
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            console.log('Theme toggle element:', themeToggle);
+
+            if (themeToggle) {
+                // Check for saved theme preference or default to light mode
+                let currentTheme = 'light';
+                if (isLocalStorageAvailable()) {
+                    currentTheme = localStorage.getItem('theme') || 'light';
+                }
+                console.log('Current theme:', currentTheme);
+                
+                if (currentTheme === 'dark') {
+                    body.classList.add('dark');
+                    themeToggle.checked = true;
+                    console.log('Applied dark theme');
+                } else {
+                    // Check system preference if no saved theme
+                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        body.classList.add('dark');
+                        themeToggle.checked = true;
+                        console.log('Applied system dark theme preference');
+                    }
+                }
+
+                themeToggle.addEventListener('change', function() {
+                    console.log('Theme toggle changed, checked:', this.checked);
+                    
+                    if (this.checked) {
+                        body.classList.add('dark');
+                        if (isLocalStorageAvailable()) {
+                            localStorage.setItem('theme', 'dark');
+                        }
+                        console.log('Switched to dark theme');
+                    } else {
+                        body.classList.remove('dark');
+                        if (isLocalStorageAvailable()) {
+                            localStorage.setItem('theme', 'light');
+                        }
+                        console.log('Switched to light theme');
+                    }
+                });
+                
+                // Add click event as fallback
+                themeToggle.addEventListener('click', function(e) {
+                    console.log('Theme toggle clicked');
+                });
+                
+                // Add mousedown event for better Chrome support
+                themeToggle.addEventListener('mousedown', function(e) {
+                    console.log('Theme toggle mousedown');
+                });
+            } else {
+                console.error('Theme toggle element not found!');
+            }
+
+            // Profile Management
+            let user = null;
+            if (isLocalStorageAvailable()) {
+                user = JSON.parse(localStorage.getItem('user'));
+            }
+            const userProfileNav = document.getElementById('userProfileNav');
+            const authButtons = document.getElementById('authButtons');
+            const headerProfileAvatar = document.getElementById('headerProfileAvatar');
+            const headerUsername = document.getElementById('headerUsername');
+
+            if (user) {
+                // Show profile navigation and hide auth buttons
+                userProfileNav.style.display = 'flex';
+                authButtons.style.display = 'none';
+
+                // Update header profile information
+                headerProfileAvatar.textContent = user.username.charAt(0).toUpperCase();
+                headerUsername.textContent = user.username;
+            }
+
+            // Animated background text
+            const bgTexts = ['Learn', 'Grow', 'Explore', 'Discover', 'Master'];
+            let currentBgTextIndex = 0;
+            const animatedBgText = document.getElementById('animatedBgText');
+
+            function changeBgText() {
+                currentBgTextIndex = (currentBgTextIndex + 1) % bgTexts.length;
+                animatedBgText.textContent = bgTexts[currentBgTextIndex];
+            }
+
+            setInterval(changeBgText, 3000);
+
+            // Newsletter subscription
+            const newsletterBtn = document.querySelector('.newsletter-btn');
+            if (newsletterBtn) {
+                newsletterBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const email = document.querySelector('.newsletter-input').value;
+                    if (email) {
+                        alert('Thank you for subscribing! We\'ll keep you updated.');
+                        document.querySelector('.newsletter-input').value = '';
+                    } else {
+                        alert('Please enter a valid email address.');
+                    }
+                });
+            }
+
+            // Add scroll animations
+            function addScrollAnimations() {
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe elements for animation
+                document.querySelectorAll('.feature-card, .language-card, .stat-card').forEach(el => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(30px)';
+                    el.style.transition = 'all 0.6s ease';
+                    observer.observe(el);
+                });
+            }
+
+            // Initialize scroll animations
+            addScrollAnimations();
+        });
+        
+        // Fallback for immediate execution
+        if (document.readyState === 'loading') {
+            console.log('Document still loading, waiting for DOMContentLoaded...');
+        } else {
+            console.log('Document already loaded, running theme initialization...');
+            // Re-run the theme initialization
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                let savedTheme = null;
+                try {
+                    savedTheme = localStorage.getItem('theme');
+                } catch(e) {
+                    console.log('localStorage not available in fallback');
+                }
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('dark');
+                    themeToggle.checked = true;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
