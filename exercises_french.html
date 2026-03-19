@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French Exercises - Language Learning Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Variables */
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #818cf8;
+            --secondary: #f8fafc;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-light: #f8fafc;
+            --background: #ffffff;
+            --background-alt: #f1f5f9;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 0.5rem;
+            --transition: all 0.3s ease;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            
+            --body-bg: #f8f9fa;
+            --body-color: #333;
+            --header-bg: white;
+            --card-bg: white;
+            --footer-bg: #374151;
+            --footer-color: white;
+            
+            --indigo-600: #4f46e5;
+            --indigo-700: #4338ca;
+            --indigo-800: #3730a3;
+            
+            /* French theme - Blue */
+            --french-primary: #2563eb;
+            --french-dark: #1d4ed8;
+            --french-light: #60a5fa;
+        }
+
+        .dark {
+            --primary: #818cf8;
+            --primary-dark: #6366f1;
+            --primary-light: #a5b4fc;
+            --secondary: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e0;
+            --background: #0f172a;
+            --background-alt: #1e293b;
+            --border: #334155;
+            
+            --body-bg: #121212;
+            --body-color: #e2e8f0;
+            --header-bg: #1a1a1a;
+            --card-bg: #2d3748;
+            --footer-bg: #374151;
+            --footer-color: #e2e8f0;
+            
+            --indigo-600: #667eea;
+            --indigo-700: #7f9cf5;
+            --indigo-800: #a3bffa;
+            
+            --french-primary: #60a5fa;
+            --french-dark: #3b82f6;
+            --french-light: #93c5fd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--background);
+            transition: var(--transition);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--background);
+            padding: 1.25rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+        }
+
+        .nav-link:hover {
+            color: var(--french-primary);
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-left: 1rem;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .theme-toggle .icon {
+            color: var(--french-primary);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--french-primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(16px);
+        }
+
+        /* User Profile */
+        .user-profile-nav {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+        }
+
+        .profile-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+        }
+
+        .profile-avatar-small {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, var(--french-primary), var(--french-dark));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 3rem 0;
+            min-height: calc(100vh - 180px);
+            background-color: var(--background-alt);
+        }
+
+        .page-title {
+            font-size: 2.25rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* Exercises Header */
+        .exercises-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .language-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border-radius: var(--radius);
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--french-primary);
+            color: var(--text-light);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--french-dark);
+        }
+
+        /* Tabs */
+        .tabs {
+            background-color: var(--background);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .tab-list {
+            display: flex;
+            background-color: var(--background);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-button {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--text-secondary);
+            border-bottom: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .tab-button:hover {
+            color: var(--french-primary);
+        }
+
+        .tab-button.active {
+            color: var(--french-primary);
+            border-bottom: 2px solid var(--french-primary);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .content-title {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Exercise Types */
+        .exercise-types {
+            padding: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .exercise-type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .exercise-type-card {
+            background-color: var(--background-alt);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .exercise-type-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+            border-color: var(--french-light);
+        }
+
+        .exercise-type-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--french-primary);
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .exercise-type-title {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .exercise-type-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Exercise Grid */
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .exercise-card {
+            background-color: var(--background);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: var(--french-light);
+        }
+
+        .exercise-card-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .exercise-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--french-primary);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .exercise-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .exercise-card-body {
+            padding: 1rem;
+            flex-grow: 1;
+        }
+
+        .exercise-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .exercise-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+        }
+
+        .exercise-card-footer {
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .difficulty {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 1rem;
+            font-weight: 500;
+        }
+
+        .difficulty.beginner {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .difficulty.intermediate {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .difficulty.advanced {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-color);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--french-light);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--footer-color);
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--french-light);
+            opacity: 1;
+        }
+
+        .flag-icon {
+            margin-right: 0.5rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .footer-bottom-left {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        .footer-bottom-right {
+            text-align: right;
+        }
+
+        .legal-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .legal-links a {
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+
+        .legal-links a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .main-nav {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .exercises-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .tab-list {
+                overflow-x: auto;
+            }
+
+            .footer-bottom {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-bottom-right {
+                text-align: center;
+            }
+
+            .legal-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <h1 class="logo"><a href="index.html">Language Learning Platform</a></h1>
+            <nav class="main-nav">
+                <div class="nav-links">
+                    <a href="about.html" class="nav-link">About Us</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <div class="user-profile-nav" id="userProfileNav" style="display: none;">
+                        <a href="profile.html" class="nav-link profile-link">
+                            <div class="profile-avatar-small" id="headerProfileAvatar"></div>
+                            <span id="headerUsername"></span>
+                        </a>
+                    </div>
+                    <div class="auth-buttons" id="authButtons">
+                        <a href="login.html" class="nav-link">Login</a>
+                        <a href="signup.html" class="nav-link">Sign up</a>
+                    </div>
+                </div>
+                <!-- Theme Toggle -->
+                <div class="theme-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon sun-icon"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <label class="switch">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="exercises-header">
+                <div>
+                    <span class="language-badge">French</span>
+                    <h2 class="page-title">French Exercises</h2>
+                    <p class="page-subtitle">Practice and improve your French skills</p>
+                </div>
+                <div class="exercises-actions">
+                    <a href="test_french.html" class="btn btn-primary">Take Level Test</a>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab-list" id="levelTabs">
+                    <button class="tab-button active" data-level="beginner">Beginner</button>
+                    <button class="tab-button" data-level="intermediate">Intermediate</button>
+                    <button class="tab-button" data-level="advanced">Advanced</button>
+                </div>
+
+                <div class="exercise-types">
+                    <div class="exercise-type-grid">
+                        <div class="exercise-type-card">
+                            <div class="exercise-type-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                            </div>
+                            <h3 class="exercise-type-title">Vocabulaire</h3>
+                            <p class="exercise-type-description">Build your French vocabulary with interactive exercises</p>
+                        </div>
+                        <div class="exercise-type-card">
+                            <div class="exercise-type-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                            </div>
+                            <h3 class="exercise-type-title">Grammaire</h3>
+                            <p class="exercise-type-description">Master French grammar with targeted practice</p>
+                        </div>
+                        <div class="exercise-type-card">
+                            <div class="exercise-type-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                            </div>
+                            <h3 class="exercise-type-title">Lecture</h3>
+                            <p class="exercise-type-description">Improve your French reading comprehension</p>
+                        </div>
+                        <div class="exercise-type-card">
+                            <div class="exercise-type-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            </div>
+                            <h3 class="exercise-type-title">Ecriture</h3>
+                            <p class="exercise-type-description">Practice writing in French</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content active" id="beginner-content">
+                    <h3 class="content-title">Beginner Exercises</h3>
+                    <div class="exercise-grid" id="beginner-exercises">
+                        <div class="exercise-card">
+                            <div class="exercise-card-header">
+                                <div class="exercise-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                                </div>
+                                <h3 class="exercise-title">Salutations</h3>
+                            </div>
+                            <div class="exercise-card-body">
+                                <p class="exercise-description">Learn essential French greetings and introductions</p>
+                                <div class="exercise-meta">
+                                    <span>15 questions</span>
+                                    <span>10 min</span>
+                                </div>
+                            </div>
+                            <div class="exercise-card-footer">
+                                <span class="difficulty beginner">Beginner</span>
+                            </div>
+                        </div>
+                        <div class="exercise-card">
+                            <div class="exercise-card-header">
+                                <div class="exercise-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path></svg>
+                                </div>
+                                <h3 class="exercise-title">Present Tense (Le Present)</h3>
+                            </div>
+                            <div class="exercise-card-body">
+                                <p class="exercise-description">Master the present tense conjugation of regular verbs</p>
+                                <div class="exercise-meta">
+                                    <span>20 questions</span>
+                                    <span>15 min</span>
+                                </div>
+                            </div>
+                            <div class="exercise-card-footer">
+                                <span class="difficulty beginner">Beginner</span>
+                            </div>
+                        </div>
+                        <div class="exercise-card">
+                            <div class="exercise-card-header">
+                                <div class="exercise-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                                </div>
+                                <h3 class="exercise-title">Les Nombres 1-100</h3>
+                            </div>
+                            <div class="exercise-card-body">
+                                <p class="exercise-description">Learn to count and use numbers in French</p>
+                                <div class="exercise-meta">
+                                    <span>20 questions</span>
+                                    <span>12 min</span>
+                                </div>
+                            </div>
+                            <div class="exercise-card-footer">
+                                <span class="difficulty beginner">Beginner</span>
+                            </div>
+                        </div>
+                        <div class="exercise-card">
+                            <div class="exercise-card-header">
+                                <div class="exercise-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                                </div>
+                                <h3 class="exercise-title">Les Couleurs</h3>
+                            </div>
+                            <div class="exercise-card-body">
+                                <p class="exercise-description">Learn colors and their agreement in French</p>
+                                <div class="exercise-meta">
+                                    <span>15 questions</span>
+                                    <span>8 min</span>
+                                </div>
+                            </div>
+                            <div class="exercise-card-footer">
+                                <span class="difficulty beginner">Beginner</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="intermediate-content">
+                    <h3 class="content-title">Intermediate Exercises</h3>
+                    <div class="exercise-grid" id="intermediate-exercises">
+                        <div class="exercise-card">
+                            <div class="exercise-card-header">
+                                <div class="exercise-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path></svg>
+                                </div>
+                                <h3 class="exercise-title">Passe Compose</h3>
+                            </div>
+                            <div class="exercise-card-body">
+                                <p class="exercise-description">Practice the compound past tense with avoir and etre</p>
+                                <div class="exercise-meta">
+                                    <span>25 questions</span>
+                                    <span>20 min</span>
+                                </div>
+                            </div>
+                            <div class="exercise-card-footer">
+                                <span class="difficulty intermediate">Intermediate</span>
+                            </div>
+                        </div>
+                        <div class="exercise-card">
+                            <div class="exercise-card-header">
+                                <div class="exercise-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path></svg>
+                                </div>
+                                <h3 class="exercise-title">L'Imparfait</h3>
+                            </div>
+                            <div class="exercise-card-body">
+                                <p class="exercise-description">Learn when to use the imperfect tense in French</p>
+                                <div class="exercise-meta">
+                                    <span>20 questions</span>
+                                    <span>18 min</span>
+                                </div>
+                            </div>
+                            <div class="exercise-card-footer">
+                                <span class="difficulty intermediate">Intermediate</span>
+                            </div>
+                        </div>
+                        <div class="exercise-card">
+                            <div class="exercise-card-header">
+                                <div class="exercise-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                                </div>
+                                <h3 class="exercise-title">Vocabulaire de Voyage</h3>
+                            </div>
+                            <div class="exercise-card-body">
+                                <p class="exercise-description">Essential vocabulary for traveling in French-speaking countries</p>
+                                <div class="exercise-meta">
+                                    <span>30 questions</span>
+                                    <span>20 min</span>
+                                </div>
+                            </div>
+                            <div class="exercise-card-footer">
+                                <span class="difficulty intermediate">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="advanced-content">
+                    <h3 class="content-title">Advanced Exercises</h3>
+                    <div class="exercise-grid" id="advanced-exercises">
+                        <div class="exercise-card">
+                            <div class="exercise-card-header">
+                                <div class="exercise-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path></svg>
+                                </div>
+                                <h3 class="exercise-title">Le Subjonctif</h3>
+                            </div>
+                            <div class="exercise-card-body">
+                                <p class="exercise-description">Master the subjunctive mood in French</p>
+                                <div class="exercise-meta">
+                                    <span>25 questions</span>
+                                    <span>25 min</span>
+                                </div>
+                            </div>
+                            <div class="exercise-card-footer">
+                                <span class="difficulty advanced">Advanced</span>
+                            </div>
+                        </div>
+                        <div class="exercise-card">
+                            <div class="exercise-card-header">
+                                <div class="exercise-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                                </div>
+                                <h3 class="exercise-title">Expressions Idiomatiques</h3>
+                            </div>
+                            <div class="exercise-card-body">
+                                <p class="exercise-description">Learn common French idioms and expressions</p>
+                                <div class="exercise-meta">
+                                    <span>20 questions</span>
+                                    <span>20 min</span>
+                                </div>
+                            </div>
+                            <div class="exercise-card-footer">
+                                <span class="difficulty advanced">Advanced</span>
+                            </div>
+                        </div>
+                        <div class="exercise-card">
+                            <div class="exercise-card-header">
+                                <div class="exercise-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                                </div>
+                                <h3 class="exercise-title">Litterature Francaise</h3>
+                            </div>
+                            <div class="exercise-card-body">
+                                <p class="exercise-description">Analyze excerpts from French literature</p>
+                                <div class="exercise-meta">
+                                    <span>10 questions</span>
+                                    <span>30 min</span>
+                                </div>
+                            </div>
+                            <div class="exercise-card-footer">
+                                <span class="difficulty advanced">Advanced</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-section">
+                    <h3>Language Learning</h3>
+                    <ul>
+                        <li><a href="exercises_english.html"><span class="flag-icon">EN</span>English</a></li>
+                        <li><a href="exercises_spanish.html"><span class="flag-icon">ES</span>Spanish</a></li>
+                        <li><a href="exercises_french.html"><span class="flag-icon">FR</span>French</a></li>
+                        <li><a href="exercises_latvian.html"><span class="flag-icon">LV</span>Latvian</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Grammar</a></li>
+                        <li><a href="#">Vocabulary</a></li>
+                        <li><a href="#">Pronunciation</a></li>
+                        <li><a href="#">Exercises</a></li>
+                        <li><a href="#">Tests</a></li>
+                        <li><a href="#">Certificates</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Feedback</a></li>
+                        <li><a href="#">Technical Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-left">
+                    <div>2024 Language Learning Platform. All rights reserved.</div>
+                    <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
+                        Platform Version: 2.1.0 | Last Updated: May 2024
+                    </div>
+                </div>
+                <div class="footer-bottom-right">
+                    <div class="legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme Toggle
+            const themeToggle = document.getElementById('themeToggle');
+            const savedTheme = localStorage.getItem('theme');
+            
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+                themeToggle.checked = true;
+            }
+            
+            themeToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    document.body.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.body.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Tab switching
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    const level = this.getAttribute('data-level');
+                    document.getElementById(`${level}-content`).classList.add('active');
+                });
+            });
+
+            // Profile Management
+            const user = JSON.parse(localStorage.getItem('user'));
+            const userProfileNav = document.getElementById('userProfileNav');
+            const authButtons = document.getElementById('authButtons');
+            const headerProfileAvatar = document.getElementById('headerProfileAvatar');
+            const headerUsername = document.getElementById('headerUsername');
+
+            if (user) {
+                userProfileNav.style.display = 'flex';
+                authButtons.style.display = 'none';
+                headerProfileAvatar.textContent = user.username.charAt(0).toUpperCase();
+                headerUsername.textContent = user.username;
+            }
+        });
+    </script>
+</body>
+</html>
